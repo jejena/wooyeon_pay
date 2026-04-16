@@ -15,7 +15,6 @@
             background-color: #f8f9fa; 
         }
 
-        /* 버튼과 설명글을 감싸는 컨테이너 */
         .container {
             text-align: center;
             width: 100%;
@@ -41,12 +40,28 @@
             background-color: #000;
         }
 
-        /* 버튼 아래 설명글 스타일 */
         .description {
             margin-top: 15px;
-            font-size: 15px; /* 요청하신 15폰트 */
+            font-size: 15px; 
             color: #888;
             line-height: 1.5;
+        }
+
+        /* 추가된 QR 이동 버튼 스타일 */
+        .qr-link-container {
+            margin-top: 40px;
+        }
+
+        .qr-link {
+            font-size: 12px; /* 아주 작게 설정 */
+            color: #bbb;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 2px;
+        }
+
+        .qr-link:hover {
+            color: #888;
         }
 
         .toast { 
@@ -78,13 +93,16 @@
             버튼을 누르면 계좌번호가 복사됩니다.<br>
             원하는 곳에 붙여넣기(Ctrl+V) 하세요.
         </div>
+
+        <div class="qr-link-container">
+            <a href="pay.html" class="qr-link">QR코드 화면으로 결제하기</a>
+        </div>
     </div>
 
     <div id="toast" class="toast">계좌번호가 복사되었습니다!</div>
 
     <script>
         function copyAccount() {
-            // 실제 계좌번호로 수정하세요
             const accountNumber = "718074267701"; 
             
             navigator.clipboard.writeText(accountNumber).then(() => {
