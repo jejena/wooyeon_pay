@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계좌 복사</title>
+    <style>
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            background-color: #f8f9fa; 
+        }
+
+        /* 버튼과 설명글을 감싸는 컨테이너 */
+        .container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .copy-btn { 
+            background-color: #333; 
+            color: white; 
+            border: none; 
+            padding: 20px 40px; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            font-size: 1.2rem; 
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.1s, background-color 0.2s;
+            width: 80%;
+            max-width: 320px;
+        }
+
+        .copy-btn:active { 
+            transform: scale(0.95);
+            background-color: #000;
+        }
+
+        /* 버튼 아래 설명글 스타일 */
+        .description {
+            margin-top: 15px;
+            font-size: 15px; /* 요청하신 15폰트 */
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .toast { 
+            visibility: hidden; 
+            min-width: 200px; 
+            background-color: rgba(0,0,0,0.8); 
+            color: #fff; 
+            text-align: center; 
+            border-radius: 50px; 
+            padding: 12px; 
+            position: absolute; 
+            bottom: 50px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            font-size: 0.9rem;
+        }
+        .toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 1.5s; }
+
+        @keyframes fadein { from {bottom: 20px; opacity: 0;} to {bottom: 50px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 50px; opacity: 1;} to {bottom: 20px; opacity: 0;} }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="copy-btn" onclick="copyAccount()">계좌번호 복사하기</button>
+        
+        <div class="description">
+            버튼을 누르면 계좌번호가 복사됩니다.<br>
+            원하는 곳에 붙여넣기(Ctrl+V) 하세요.
+        </div>
+    </div>
+
+    <div id="toast" class="toast">계좌번호가 복사되었습니다!</div>
+
+    <script>
+        function copyAccount() {
+            // 실제 계좌번호로 수정하세요
+            const accountNumber = "718074267701"; 
+            
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                showToast();
+            }).catch(err => {
+                const tempInput = document.createElement("input");
+                tempInput.value = accountNumber;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                showToast();
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.className = "toast show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2000);
+        }
+    </script>
+
+</body>
+</html>
